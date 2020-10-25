@@ -10,6 +10,19 @@ class ListCategoriesComponent extends Component {
         }
         this.addCategory = this.addCategory.bind(this);
         this.editCategory = this.editCategory.bind(this);
+        this.deleteCategory = this.deleteCategory.bind(this);
+        this.viewCategory = this.viewCategory.bind(this);
+    }
+
+    viewCategory(categoryId){
+        this.props.history.push(`/view-category/${categoryId}`);
+    }
+
+    deleteCategory(categoryId){
+        //rest api call
+        CategoryService.deleteCategory(categoryId).then( res => {
+            this.setState({categories: this.state.categories.filter(category => category.categoryId !== categoryId)});
+        });
     }
 
     editCategory(categoryId){
@@ -57,6 +70,10 @@ class ListCategoriesComponent extends Component {
                                         <td>
                                             <button onClick={ () => this.editCategory(category.categoryId)}
                                             className="btn btn-info">Update</button>
+                                            <button style = {{marginLeft: "10px"}} onClick={ () => this.deleteCategory(category.categoryId)}
+                                            className="btn btn-danger">Delete</button>
+                                            <button style = {{marginLeft: "10px"}} onClick={ () => this.viewCategory(category.categoryId)}
+                                            className="btn btn-info">View Expenses</button>
                                         </td>
                                     </tr>
                                 )
