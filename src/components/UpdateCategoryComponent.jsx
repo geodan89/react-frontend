@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import CategoryService from '../services/CategoryService';
 
-class CreateCategoryComponent extends Component {
+class UpdateCategoryComponent extends Component {
+
     constructor(props){
         super(props)
 
         this.state = {
+            categoryId: this.props.match.params.categoryId,
            categoryName: '',
            initialAmount: ''
         }
 
         this.changeCategoryNameHandler = this.changeCategoryNameHandler.bind(this);
         this.changeInitialAmountHandler = this.changeInitialAmountHandler.bind(this);
-        this.saveCategory = this.saveCategory.bind(this);
+        this.updateCategory = this.updateCategory.bind(this);
+    }
+
+    componentDidMount(){
+        CategoryService.getCategoryById(this.state.categoryId).then((res) =>{
+            let category = res.data;
+            this.setState({categoryName: category.categoryName,
+                         initialAmount: category.initialAmount});
+        });
     }
 
     changeCategoryNameHandler= (event) => {
@@ -23,12 +33,12 @@ class CreateCategoryComponent extends Component {
         this.setState({initialAmount: event.target.value});
     }
 
-    saveCategory= (e) =>{
+    updateCategory= (e) =>{
         e.preventDefault();
         let category = {categoryName: this.state.categoryName, initialAmount: this.state.initialAmount};
         console.log('category =>' + JSON.stringify(category));
 
-        CategoryService.createCategory(category).then(res =>{
+        CategoryService.updateCategory(category, this.state.categoryId).then( res => {
             this.props.history.push('/categories');
         });
     }
@@ -43,7 +53,7 @@ class CreateCategoryComponent extends Component {
                <div className="container">
                    <div className="row">
                         <div className="card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center">Add Category</h3>
+                            <h3 className="text-center">Update Category</h3>
                                 <div className ="card-body">
                                     <form>
                                         <div className="form-group">
@@ -60,7 +70,7 @@ class CreateCategoryComponent extends Component {
                                             value={this.state.initialAmount} 
                                             onChange={this.changeInitialAmountHandler}/>
                                         </div>
-                                        <button className="btn btn-success" onClick={this.saveCategory}>Save</button>
+                                        <button className="btn btn-success" onClick={this.updateCategory}>Save</button>
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
                                     </form>
                                 </div>
@@ -70,6 +80,7 @@ class CreateCategoryComponent extends Component {
             </div>
         );
     }
+   
 }
 
-export default CreateCategoryComponent;
+    export default UpdateCategoryComponent;

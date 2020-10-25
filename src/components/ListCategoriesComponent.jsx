@@ -8,7 +8,18 @@ class ListCategoriesComponent extends Component {
         this.state = {
             categories: []
         }
+        this.addCategory = this.addCategory.bind(this);
+        this.editCategory = this.editCategory.bind(this);
     }
+
+    editCategory(categoryId){
+        this.props.history.push(`/update-category/${categoryId}`);
+    }
+
+    addCategory(){
+        this.props.history.push('/add-category');
+    }
+
     //res means response
     componentDidMount(){
         CategoryService.getCategories().then((res) =>{
@@ -19,14 +30,18 @@ class ListCategoriesComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Category List</h2>
+                <h2 className="text-center">Budget Category List</h2>
+                    <div className = "row">
+                        <button className = "btn btn-primary" onClick={this.addCategory}>Add Category</button>
+                    </div>
                 <div className="row">
                     <table className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Category Name</th>
-                                <th>Category Initial Amount</th>
-                                <th>Category Current Amount</th>
+                                <th>Initial Amount</th>
+                                <th>Current Amount</th>
+                                <th>Created Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -34,10 +49,15 @@ class ListCategoriesComponent extends Component {
                             {
                                 this.state.categories.map(
                                     category => 
-                                    <tr key = {category.id}>
+                                    <tr key = {category.categoryId}>
                                         <td>{category.categoryName}</td>
                                         <td>{category.initialAmount}</td>
                                         <td>{category.currentAmount}</td>
+                                        <td>{category.createdDate}</td>
+                                        <td>
+                                            <button onClick={ () => this.editCategory(category.categoryId)}
+                                            className="btn btn-info">Update</button>
+                                        </td>
                                     </tr>
                                 )
                             }
