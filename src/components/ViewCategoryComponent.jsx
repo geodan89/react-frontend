@@ -15,6 +15,11 @@ class ViewCategoryComponent extends Component {
         this.addExpense = this.addExpense.bind(this);
         this.editExpense = this.editExpense.bind(this);
         this.deleteExpense = this.deleteExpense.bind(this);
+        this.backToCategoryList = this.backToCategoryList.bind(this);
+    }
+
+    backToCategoryList(){
+        this.props.history.push('/categories');
     }
 
     deleteExpense(categoryId,expenseId){
@@ -47,6 +52,9 @@ class ViewCategoryComponent extends Component {
     render() {
         return (
             <div>
+                <div className = "row">
+                    <button className = "btn btn-primary" onClick={this.backToCategoryList}>Back</button>
+                </div>
                 <div className = "card col-md-6 offset-md-3">
                     <h3 className = "text-center">Category Details</h3>
                     <div className = "card-body">
