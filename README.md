@@ -1,3 +1,5 @@
+This is the a react.js UI app that calls my-budget-app endpoints.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
