@@ -23,8 +23,8 @@ function App() {
                 <Route path = "/add-category" component = {CreateCategoryComponent}></Route>
                 <Route path = "/update-category/:categoryId" component = {UpdateCategoryComponent}></Route>
                 <Route path = "/view-category/:categoryId" component = {ViewCategoryComponent}></Route>
-                <Route path = "/add-expense" component = {CreateExpenseComponent}></Route>
-                <Route path = "/update-expense/:expenseId" component = {UpdateExpenseComponent}></Route>
+                <Route path = "/category/:categoryId/add-expense" component = {CreateExpenseComponent}></Route>
+                <Route path = "/category/:categoryId/update-expense/:expenseId" component = {UpdateExpenseComponent}></Route>
               </Switch>
             </div>
           <FooterComponent />

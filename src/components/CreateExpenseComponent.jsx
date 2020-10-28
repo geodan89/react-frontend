@@ -29,12 +29,12 @@ class CreateExpenseComponent extends Component {
         let expense = {expenseName: this.state.expenseName, expensePrice: this.state.expensePrice};
         console.log('expense =>' + JSON.stringify(expense));
         ExpenseService.createExpense(this.state.categoryId, expense).then(res =>{
-            this.props.history.push('/view-category/:categoryId');
+            this.props.history.push(`/view-category/${this.state.categoryId}`);
         });
     }
 
     cancel(){
-        this.props.history.push('/view-category/:categoryId');
+        this.props.history.push(`/view-category/${this.state.categoryId}`);
     }
 
     render() {

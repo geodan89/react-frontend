@@ -15,26 +15,22 @@ class ViewCategoryComponent extends Component {
         this.addExpense = this.addExpense.bind(this);
         this.editExpense = this.editExpense.bind(this);
         this.deleteExpense = this.deleteExpense.bind(this);
-        this.viewExpense = this.viewExpense.bind(this);
     }
 
-    viewExpense(expenseId){
-        this.props.history.push(`/view-expense/${expenseId}`);
-    }
-
-    deleteExpense(expenseId){
+    deleteExpense(categoryId,expenseId){
         //rest api call
         ExpenseService.deleteExpense(this.state.categoryId, expenseId).then( res => {
             this.setState({expenses: this.state.expenses.filter(expense => expense.expenseId !== expenseId)});
         });
+        this.props.history.push(`/view-category/${this.state.categoryId}`);
     }
 
-    editExpense(expenseId){
-        this.props.history.push(`/update-expense/${expenseId}`);
+    editExpense(categoryId, expenseId){
+        this.props.history.push(`/category/${categoryId}/update-expense/${expenseId}`);
     }
 
-    addExpense(){
-        this.props.history.push('/add-expense');
+    addExpense(categoryId){
+        this.props.history.push(`/category/${categoryId}/add-expense`);
     }
     //make rest api call or ajax call (this method is called right after a component is mounted)
     componentDidMount(){
@@ -69,9 +65,9 @@ class ViewCategoryComponent extends Component {
                     </div>
                 </div>
                 <h2 className="text-center">Expense List</h2>
-                    <div className = "row">
-                        <button className = "btn btn-primary" onClick={this.addExpense}>Add Expense</button>
-                    </div>
+                <div className = "row">
+                <button className = "btn btn-primary" onClick={() =>this.addExpense(this.state.categoryId)}>Add Expense</button>
+            </div>
                 <div className="row">
                     <table className="table table-striped table-bordered">
                         <thead>
@@ -85,18 +81,16 @@ class ViewCategoryComponent extends Component {
                         <tbody>
                             {
                                 this.state.expenses.map(
-                                    expense => 
+                                    expense =>
                                     <tr key = {expense.expenseId}>
                                         <td>{expense.expenseName}</td>
                                         <td>{expense.expensePrice}</td>
                                         <td>{expense.createdDate}</td>
                                         <td>
-                                            <button onClick={ () => this.editExpense(expense.expenseId)}
+                                            <button onClick={ () => this.editExpense(this.state.categoryId,expense.expenseId)}
                                             className="btn btn-info">Update</button>
-                                            <button style = {{marginLeft: "10px"}} onClick={ () => this.deleteExpense(expense.expenseId)}
+                                            <button style = {{marginLeft: "10px"}} onClick={ () => this.deleteExpense(this.state.categoryId,expense.expenseId)}
                                             className="btn btn-danger">Delete</button>
-                                            <button style = {{marginLeft: "10px"}} onClick={ () => this.viewExpense(expense.expenseId)}
-                                            className="btn btn-info">View</button>
                                         </td>
                                     </tr>
                                 )

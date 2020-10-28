@@ -27,15 +27,15 @@ class UpdateExpenseComponent extends Component {
 
     updateExpense= (e) =>{
         e.preventDefault();
-        let expense = {expenseName: this.state.expenseyName, expensePrice: this.state.expensePrice};
+        let expense = {expenseName: this.state.expenseName, expensePrice: this.state.expensePrice};
         console.log('expense =>' + JSON.stringify(expense));
         ExpenseService.updateExpense(this.state.categoryId, expense, this.state.expenseId).then( res => {
-            this.props.history.push('/view-category/:categoryId');
+            this.props.history.push(`/view-category/${this.state.categoryId}`);
         });
     }
 
     cancel(){
-        this.props.history.push('/view-category/:categoryId');
+        this.props.history.push(`/view-category/${this.state.categoryId}`);
     }
 
     componentDidMount(){
@@ -70,7 +70,7 @@ class UpdateExpenseComponent extends Component {
                                             value={this.state.expensePrice} 
                                             onChange={this.changeExpensePriceHandler}/>
                                         </div>
-                                        <button className="btn btn-success" onClick={this.updateCategory}>Save</button>
+                                        <button className="btn btn-success" onClick={this.updateExpense}>Save</button>
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
                                     </form>
                                 </div>
