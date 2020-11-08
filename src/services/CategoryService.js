@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const CATEGORY_API_BASE_URL = "http://localhost:8080/api/v1/categories";
-const CATEGORY_API_CREATE_URL = "http://localhost:8080/api/v1/category";
-const CATEGORY_API_BASE_URL2 = "http://localhost:8080/api/v1/category";
+const CATEGORY_API_BASE_URL = "https://my-budget-app-1604840039915.azurewebsites.net/api/v1/categories";
+const CATEGORY_API_CREATE_URL = "https://my-budget-app-1604840039915.azurewebsites.net/api/v1/category";
+const CATEGORY_API_BASE_URL2 = "https://my-budget-app-1604840039915.azurewebsites.net/api/v1/category";
 
 class CategoryService{
 
