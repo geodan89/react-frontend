@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const EXPENSE_API_BASE_URL2 = "https://my-budget-app-1604840039915.azurewebsites.net/api/v1/category";
+const EXPENSE_API_BASE_URL2 = "http://localhost:8080/api/v1/category";
 
 
 class ExpenseService{
